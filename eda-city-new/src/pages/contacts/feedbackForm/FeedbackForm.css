@@ -1,0 +1,81 @@
+.feedback-form {
+	
+}
+
+.feedback-form-radio-group {
+	display: flex;
+	
+}
+
+.feedback-form-container {
+	position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 14px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  flex-grow: 1;
+}
+
+.feedback-form-input {
+	position: absolute;
+	opacity: 0;
+}
+
+.feedback-form-input:hover ~ .feedback-form-checkmark {
+	 background-color: #ccc;
+}
+
+.feedback-form-input:checked ~ .feedback-form-checkmark {
+	 background-color: #2196F3;
+}
+
+
+.feedback-form-checkmark {
+	position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+
+  transform: translateY(-22%);
+}
+
+.feedback-form-checkmark:after {
+	content: "";
+  position: absolute;
+  display: none;
+
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.feedback-form-input:checked ~ .feedback-form-checkmark:after {
+	display: block;
+} 
+
+.feedback-form-message {
+	margin: 20px 0 30px;
+	resize: none;
+	padding: 5px 10px;
+	width: 100%;
+}
+
+
+@media screen and (max-width: 1025px) {
+  .feedback-form-message {
+    margin-top: 2px;
+  }
+}

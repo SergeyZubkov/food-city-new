@@ -1,0 +1,60 @@
+.main {
+	width: 100%;
+	background: #fff;
+	overflow: auto;
+	position: relative;
+	margin-top: -3px;
+}
+
+.main-lead {
+		height: 520px;
+}
+
+.main-text {
+	color: white;
+	font-size: 60px;	
+	font-weight: 400;
+	text-align: center;
+	padding-top: 150px;
+	position: relative;
+	z-index: 2;
+	text-shadow: 0px 0px 2px #111;
+}
+
+.main-bg-cover {
+	position: absolute;
+	height: 520px;
+	left: 0;
+	right: 0;
+	background: url(../../imgs/bg.jpg) no-repeat;
+	background-size: cover;
+}
+
+.main-bg-cover:after{
+	content: '';
+	display: block;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: black;
+	opacity: .3;
+}
+
+.main-button {
+	text-align: center;
+	margin-top: 50px;
+	text-shadow: none;
+}
+
+@media screen and (max-width: 820px) {
+	.main-text {
+		font-size: 36px;
+	}
+
+	.main-button {
+		font-size: 36px;
+	}
+}
+

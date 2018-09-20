@@ -1,0 +1,18 @@
+.feature-item {
+	padding: 35px 0;
+	width: 300px;
+}
+
+.feature-item-icon {
+	width: 100px;
+	height: 100px;
+	margin: 0 auto;
+	display: block;
+}
+
+.feature-item-text {
+	font-size: 19px;
+	text-align: center;
+	margin-top: 10px;
+	line-height: 1.7;
+}

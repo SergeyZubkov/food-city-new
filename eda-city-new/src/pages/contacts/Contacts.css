@@ -1,0 +1,117 @@
+.contacts {
+	overflow: auto;
+	min-height: 100%;
+	padding: 100px 15px 70px;
+	position: relative;
+	z-index: 	1;
+}
+
+.contacts-wrapper {
+
+	position: relative;	
+}
+
+/*.contacts-wrapper:after {
+	content: ''; 
+	position: absolute;
+	top: -5px;
+	left: -5px; 
+	right: -5px; 
+	bottom: -5px;
+	filter: grayscale(100%) blur(15px) brightness(.6);
+			background: url('../../imgs/bg-kitchen.png');
+	background-repeat: 	no-repeat;
+	background-size: cover;
+}*/
+
+.contacts-mail {
+	margin-top: 60px;
+	display: flex;
+	align-items: center;
+}
+
+
+.contacts-mail-link {
+	font-size: 20px;
+	text-decoration: underline;
+	
+}
+
+.contacts-mail-icon {
+	width: 60px;
+	height: 60px;
+	margin-right: 60px;
+}
+
+.contacts-title {
+	margin: 0;
+	padding: 0px 0 40px
+}
+
+.contacts-feedback-text {
+	width: 60%;
+	padding-right: 15px;
+	font-size: 17px;
+	line-height: 1.3;
+}
+
+.contacts-feedback-form {
+	margin: 20px 0 0 0 ;
+	width: 40%;
+	padding-left: 15px;
+}
+
+.contacts-feedback-content {
+	display: flex;
+}
+
+.contacts-feedback {
+	padding-bottom: 50px;
+}
+
+.contacts-map {
+	height: 315px;
+	background: #efefef;
+	overflow: hidden;
+}
+
+.contacts-adress-text {
+	font-size: 17px;
+	line-height: 1.3;
+}
+
+.contacts-button-back {
+	margin-top: 40px;	
+	text-align: center;
+}
+@media screen and (max-width: 1025px) {
+	.contacts {
+		padding-top: 	40px;
+		padding-button: 20px;
+	}
+	.contacts-title {
+		text-align: center;
+	}
+	.contacts-feedback {
+		text-align: center;
+		
+	}
+	.contacts-feedback-text,
+	.contacts-feedback-form {
+		padding: 0;	
+		width: 100%;
+	}
+		.contacts-feedback-form {
+			margin-top: 	50px;
+		}
+	.contacts-feedback-content {
+		flex-direction: column;
+		align-items: center;
+	}
+	.contacts-mail {
+		justify-content: center;
+	}
+	.contacts-adress {	
+		text-align: center;
+	}
+}

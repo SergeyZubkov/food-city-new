@@ -1,0 +1,13 @@
+.button-arrow {
+    display: inline-block;        
+    padding: 10px 30px 10px;
+    background: var(--main-color-1);
+    color: #fff;
+    -webkit-clip-path: polygon(10% 0, 100% 0, 100% 100%, 10% 100%, 0 50%);
+		clip-path: polygon(10% 0, 100% 0, 100% 100%, 10% 100%, 0 50%);
+		-webkit-clip-path: url("#clip-triangle");
+    clip-path: url("#clip-triangle");
+    text-decoration: none;
+    text-transform: uppercase;
+    cursor: pointer;
+}

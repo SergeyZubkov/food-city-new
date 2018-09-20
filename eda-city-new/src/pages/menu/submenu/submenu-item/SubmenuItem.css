@@ -1,0 +1,41 @@
+.submenu-item {
+	display: flex;
+	align-items: center;
+	font-size: 20px;
+	margin-bottom: 5px;
+	justify-content: space-between;
+}
+
+.submenu-item-title {
+
+}
+
+.submenu-item-order {
+	display: flex;
+	align-items: baseline;
+
+}
+
+.submenu-item .button.button-default {
+	width: 40px;
+	height: 40px;
+	padding: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.submenu-item-amount {
+	margin: 0px 10px;
+}
+
+@media screen and (max-width: 660px) {
+	.submenu-item {
+		font-size: 14px;
+	}
+
+	.submenu-item .button.button-default  {
+		width: 30px;
+		height: 30px;
+	}
+}

@@ -1,0 +1,54 @@
+.order {
+
+}
+
+.order-title {
+	text-align: center;
+	font-size: 48px;
+	font-family: Lora, Arial, sans-serif;
+	font-weight: 700;
+	padding: 20px 0;
+}
+
+.order-form {
+	display: flex;
+	flex-wrap: wrap;
+	width: 600px;
+	margin: 0 auto;
+	padding: 50px 0;
+}
+.order input {
+	width: 100%;
+    padding: 20px;
+    font-size: 16px;
+    font-weight: 400;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    outline-color: #ccc;
+    outline-width: 2px;
+    font-family: 'Open-Sans', sans-serif;
+    margin-bottom: 25px;
+}
+
+.order-form-buttons {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+}
+
+@media screen and (max-width: 660px) {
+	.order-title {
+		font-size: 26px;
+	}
+
+	.order-form {
+		display: flex;
+		flex-wrap: wrap;
+		width: 100%;
+		margin: 0 auto;
+		padding: 50px 5px;
+	}
+
+	.order input {
+		font-size: 14px;
+	}
+}

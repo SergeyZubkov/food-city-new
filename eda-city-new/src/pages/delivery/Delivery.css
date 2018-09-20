@@ -1,0 +1,51 @@
+.delivery {
+	padding-bottom: 60px;
+	min-height: 100%;
+}
+
+.delivery-title {
+	text-align: center;
+	font-size: 48px;
+	font-family: Lora, Arial, sans-serif;
+	font-weight: 700;
+	padding: 100px 0 30px;
+}
+
+.delivery-text {
+	text-align: center;
+	font-size: 20px;
+}
+
+.delivery-map {
+	height: 315px;
+	background: #efefef
+}
+
+.delivery-back {
+	display: flex;
+	justify-content: center;
+	margin: 80px 0 60px;
+}
+
+.delivery-back .button-arrow {
+	font-size: 16px;
+}
+
+.delivery-back:hover {
+	cursor: pointer;
+}
+
+
+@media screen and (max-width: 660px) {
+	.delivery {
+		padding : 0 10px;
+	}
+	.delivery-title {
+		font-size: 22px;
+		padding-top: 50px;
+	}
+	.delivery-text {
+		font-size: 14px;
+	}
+}
+

@@ -1,0 +1,77 @@
+.calendar {
+	display: flex;
+	background: #fff;
+	justify-content: center;
+	width: 100%;
+	border-bottom: 1px solid #cfcfcf;
+	position: absolute;
+	top: 0;
+}
+
+.calendar-fixed {
+	position: fixed;
+	z-index: 998;
+	top: 80px;
+}
+
+.calendar-day {
+	width: 60px;
+	height: 60px;
+	border-bottom: 3px solid transparent;
+	font-weight: 700;
+	color: #666;
+	display: flex;
+	justify-content: space-around;
+	flex-direction: column;
+	align-items: center;
+	flex-wrap: wrap;
+	cursor: 	pointer;
+	transition: .3s;
+}
+
+.calendar-day-active {
+	border-color: #31d367;
+	background:  #efefef;
+}
+
+.calendar-day:hover {
+	background: #f9f9f9;
+	border-color: #31d367;
+}
+
+.calendar-day.calendar-day-disabled:hover {
+	border-color: transparent;
+	background: #fff;
+}
+
+.calendar-day-disabled {
+	color: #afafaf;
+	cursor: default;
+}
+
+@media screen and (max-width: 1114px) {
+	.calendar-day {
+		width: 50px;
+		height: 50px;
+		font-size: 18px;
+		font-weight: 300;
+	}
+}
+
+@media screen and (max-width: 1114px) {
+	.calendar-fixed {
+		top: 90px;
+	}
+}
+
+@media screen and (max-width: 380px) {
+	.calendar-fixed {
+		top: 74px;
+	}
+}
+
+@media screen and (max-width: 670px) {
+	.calendar-fixed {
+		top: 75px;
+	}
+}

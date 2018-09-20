@@ -1,0 +1,20 @@
+{
+	"type": "FeatureCollection",
+	"metadata": {
+		"name":"Без названия",
+		"creator": "Yandex Map Constructor"
+	},
+	"features": [
+		{
+			"type": "Feature",
+			"id":0,
+			"geometry": {
+				"type": "Point",
+				"coordinates": [37.451366,55.78282]},
+			"properties": {
+				"description": "Россия, Москва, набережная Новикова-Прибоя, 6к4",
+				"iconCaption": "ЕдаСити","marker-color":"#56db40" 
+			}
+		}
+	]
+}
