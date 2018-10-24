@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import "./Order.css";
 
+import nanoajax from "nanoajax";
+
 import dataService from '../../data/dataService';
 import Button from '../../commons/button/Button';
 import {withRouter} from 'react-router-dom';
@@ -49,9 +51,41 @@ export default class Order extends Component {
 
   createHandlerSubmit = (history) => {
   	return () => {
-  		dataService.clearOrder();
-  		history.push('/orderHandle');
-  	}
+      const {
+        name,
+        phone,
+        amount,
+        addressDeliver
+      } = this.state;
+
+      nanoajax.ajax({
+        url: 'mail.php', 
+        method: 'POST', 
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          name,
+          phone,
+          amount,
+          addressDeliver,
+          order: dataService.getOrder()
+        })
+      }, () => {
+        dataService.clearOrder();
+        history.push('/orderHandle');
+      });
+    }
+  }
+  isEmptyForm = () => {
+    let {
+      name,
+      amount,
+      phone,
+      addressDeliver
+    } = this.state;
+
+    return !name||!amount||!phone||!addressDeliver
   }
 	render() {
 
@@ -59,6 +93,7 @@ export default class Order extends Component {
 		  <Button 
 		  	className='button-green' 
 		  	onClick={this.createHandlerSubmit(history)}
+        disabled={this.isEmptyForm()}
 		  > 
 		  	заказать
 		  </Button>
@@ -97,7 +132,7 @@ export default class Order extends Component {
           <input 
 						name='amount'
           	type="number" 
-          	min='0'
+          	min='1'
           	value={this.state.amount} 
           	onChange={this.handleChangeAmount}
           	placeholder="Кол. обедов"

@@ -10,7 +10,7 @@ export default class FeatureItem extends Component {
 
 		return (
 			<div className='feature-item'>
-				<img className="feature-item-icon" src={icon} title="" />
+				<img className="feature-item-icon" src={icon} alt="" />
 				<div className="feature-item-text">{text}</div>
 			</div>
 		);

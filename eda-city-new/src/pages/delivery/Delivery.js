@@ -12,7 +12,7 @@ export default class Delivery extends Component {
 			<div className='delivery container'>
 				<div className="delivery-title">Условия доставки</div>
 				<div className="delivery-text">Зона бесплатной доставки отмечена на карте.
-					В другие районы бесплатная доставка осуществляется при заказе на сумму от 3500 руб.
+					В другие районы бесплатная доставка осуществляется при заказе от 10 обедов.
 				</div>
 				<div className="delivery-back">
 					<ButtonArrow  onClick={() => this.props.history.goBack()}> Назад </ButtonArrow>

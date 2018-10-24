@@ -6,6 +6,8 @@ import m from 'moment';
 const isMatchDate = (date1, date2) => date1.month === date2.month&&date1.day === date2.day;
 const FirstDateGreaterSecond = (date1, date2) => date1.month > date2.month&&date1.day > date2.day;
 
+const isNoNeedSide = (category, needSide) => category == 'hotter' && !needSide
+
 class DataService extends EventEmitter {
 	constructor() {
 		super();
@@ -19,53 +21,54 @@ class DataService extends EventEmitter {
 		this.selectedDate = Object.assign({}, this.startDate);
 
 		this.orderDefault = () => {
-			console.log(this.menu[0].items.filter(i => i.category == 'soup')[0])
-			if (true) {
+
+			if (this.selectedDayIsToday()) {
 				return {
-					salad: this.menu[0].items.filter(i => i.category == 'salad')[0].title,
-					soup:  this.menu[0].items.filter(i => i.category == 'soup')[0].title,
-					hotter:  this.menu[0].items.filter(i => i.category == 'hotter')[0].title,
-					side:  this.menu[0].items.filter(i => i.category == 'side')[0].title,
+					salad: this.menu[0].items.filter(i => i.category === 'salad')[0].title,
+					soup:  this.menu[0].items.filter(i => i.category === 'soup')[0].title,
+					hotter:  this.menu[0].items.filter(i => i.category === 'hotter')[0].title,
+					side:  this.menu[0].items.filter(i => i.category === 'side')[0].title,
+					amount: 1,
+					submenu: []
+				}
+			} else {
+				return {
+					salad: "",
+					soup: "",
+					hotter: "",
+					side: "",
+					amount: 1,
 					submenu: []
 				}
 			}
-
 		}
-		// ({
-		// 	salad: null,
-		// 	soup: null,
-		// 	hotter: null,
-		// 	side: null,
-		// 	submenu: []
-		// })
 
 		this.order = this.orderDefault();
 	}
 
 	getStartedDate() {
-		let month = m().month();
-		let day = m().date();
+		let currentMonth = m().month();
+		let currentDay = m().date();
 
-		let currentDate = this.CLOSED_TIME.diff(m()) > 0
-		? {month, day}
-		: {month, day: m().month(month).date(day).add(1, 'd').date()}
+		let startDate = this.CLOSED_TIME.diff(m()) > 0
+		? {month: currentMonth, day: currentDay}
+		: {month: currentMonth, day: m().month(currentMonth).date(currentDay).add(1, 'd').date()}
 	
-		let endDate = this.menu[this.menu.length-1].date||currentDate;
+		let endDate = this.menu[this.menu.length-1].date||startDate;
 
-		console.log(endDate)
 		while (
-			!this.isWorkingDate(currentDate)
-			&&!FirstDateGreaterSecond(currentDate, endDate)
+			!this.isWorkingDate(startDate)
+			&&!FirstDateGreaterSecond(startDate, endDate)
 		) {
-			let newDate = m().month(currentDate.month).date(currentDate.day).add(1, 'd');
+			let newDate = m().month(startDate.month).date(startDate.day).add(1, 'd');
 
-			currentDate.month = newDate.month();
-			currentDate.day = newDate.date();
+			startDate.month = newDate.month();
+			startDate.day = newDate.date();
 
-			console.log(currentDate)
+			console.log(startDate)
 		}
 
-		return currentDate;
+		return startDate;
 	}
 
 	changeDate(date) {
@@ -80,15 +83,29 @@ class DataService extends EventEmitter {
 			day: m().date()
 		}
 
-		return isMatchDate(this.selectedDate, today); 
+		return isMatchDate(this.selectedDate, today)
+					||isMatchDate(this.selectedDate, {month: m().month(), day: 24}); 
 	}
 
-	addToOrderDish(name, category) {
+	addToOrderDish(name, category, needSide) {	
+		console.log(isNoNeedSide(category, needSide))
+		if (isNoNeedSide(category, needSide)) {
+			const NO_NEED = 'NO_NEED';
+
+			this.order['side'] = NO_NEED;
+			console.log('no_need')
+		}
+
 		this.order[category] = name;
 		this.emit('changeOrder');
 	}
 
-	removeToOrderDish(category) {
+	removeToOrderDish(category, needSide) {
+
+		if (isNoNeedSide(category, needSide)) {
+			this.order['side'] = null;
+		}
+
 		this.order[category] = null;
 		this.emit('changeOrder');
 	}
@@ -153,6 +170,7 @@ class DataService extends EventEmitter {
 		this.emit('changeOrder');
 		console.log(this.order)
 	}
+
 }
 
 const dataService = new DataService();

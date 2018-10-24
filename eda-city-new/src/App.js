@@ -13,6 +13,9 @@ import Delivery from './pages/delivery/Delivery';
 import ScrollToTop from './ScrollToTop';
 import Contacts from './pages/contacts/Contacts';
 
+import NoWork from './pages/noWork/NoWork';
+
+
 class App extends Component {
   render() {
     return (
@@ -26,7 +29,8 @@ class App extends Component {
           <Route path='/orderHandle' component={OrderHandle} />
           <Route path='/delivery' component={Delivery} />
           <Route path='/contacts' component={Contacts} />
-          
+
+{/*          <Route exact path='/' component={NoWork} />*/}
           <Redirect to='/'/>
           </Switch>
           <Footer />

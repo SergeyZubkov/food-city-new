@@ -14,7 +14,7 @@ export default class AccountList extends Component {
 			salad,
 			soup,
 			hotter,
-			dish,
+			side,
 			submenu
 		} = this.state.order;
 
@@ -39,7 +39,7 @@ export default class AccountList extends Component {
 					<div className="account-list-list-item-price"></div>
 				</div>
 				<div className="account-list-item account-list-item-sub">
-					<div className="account-list-item-title">{dish}</div>
+					<div className="account-list-item-title">{side === 'NO_NEED' ? null : side}</div>
 					<div className="account-list-list-item-price"></div>
 				</div>
 

@@ -3,9 +3,9 @@ import './FeatureList.css';
 
 import FeatureItem from './featureItem/FeatureItem';
 
-import addContact from '../../../imgs/features/add-contact.svg';
+// import addContact from '../../../imgs/features/add-contact.svg';
 import bioMassEcoEnergy from '../../../imgs/features/bio-mass-eco-energy.svg';
-import giveMoney from '../../../imgs/features/give-money.svg';
+// import giveMoney from '../../../imgs/features/give-money.svg';
 import microwave from '../../../imgs/features/microwave-oven.svg';
 import restaurantIcon from '../../../imgs/features/restaurant-icon.svg';
 

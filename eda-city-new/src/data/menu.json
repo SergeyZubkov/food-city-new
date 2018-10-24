@@ -2,35 +2,161 @@
 	{
 		"date": {
 			"month": 9,
-			"day": 2
+			"day": 24
 		},
 		"items": [
 			{
-				"alternative": "0",
+				"alternative": false,
 				"category": "salad",
 				"title": "Салат греческий",
 				"img": "food/греческий.jpg",
 				"composition": "помидоры, огурцы, перец болгарский, сыр фета, маслины, масло оливковое"
 			},
 			{
-				"alternative": "0",
+				"alternative": false,
 				"category": "soup",
 				"title": " Куриный с вермишелью",
 				"img": "food/суп-куриный-с-вермишелью.jpg",
 				"composition": "курица, картофель, вермишель, лук репчатый, морковь, масло растительное, соль, специи"
 			},
 			{
-				"alternative": "0",
+				"alternative": false,
 				"category": "hotter",
+				"needSide": true,
 				"title": "Гуляш из курицы",
 				"img": "food/гуляш2.jpg",
 				"composition": "курица, лук репчатый, морковь, томатная паста, мука пшеничная, масло растительное, лавровый лист, соль, перец, специи"
 			},
 			{
-				"alternative": "0",
+				"alternative": false,
+				"category": "side",
+				"title": "рис",
+				"img": "food/рис.jpg",
+				"composition": "рис, соль, вода"
+			}
+		]
+	},
+	{
+		"date": {
+			"month": 9,
+			"day": 25
+		},
+		"items": [
+			{
+				"alternative": false,
+				"category": "salad",
+				"title": "Оливье",
+				"img": "food/оливье.jpg",
+				"composition": ""
+			},
+			{
+				"alternative": true,
+				"category": "salad",
+				"title": "Винегрет",
+				"img": "food/винегрет.jpg",
+				"composition": ""
+			},
+			{
+				"alternative": false,
+				"category": "soup",
+				"title": "Харчо",
+				"img": "food/харчо.jpg",
+				"composition": ""
+			},
+			{
+				"alternative": true,
+				"category": "soup",
+				"title": "Овощной суп-пюре",
+				"img": "",
+				"composition": ""
+			},
+			{
+				"alternative": false,
+				"category": "hotter",
+				"needSide": false,
+				"title": "Жаркое по-домашнему",
+				"img": "food/жаркое-по-домашнему.jpg",
+				"composition": ""
+			},
+			{
+				"alternative": true,
+				"category": "hotter",
+				"title": "Жареная рыба",
+				"needSide": true,
+				"img": "",
+				"composition": ""
+			},
+			{
+				"alternative": true,
+				"category": "side",
+				"title": "рис",
+				"img": "food/рис.jpg",
+				"composition": ""
+			}
+		]
+	},
+	{
+		"date": {
+			"month": 9,
+			"day": 26
+		},
+		"items": [
+			{
+				"alternative": false,
+				"category": "salad",
+				"title": "Цезарь",
+				"img": "food/цезарь.jpg",
+				"composition": ""
+			},
+			{
+				"alternative": true,
+				"category": "salad",
+				"title": "Влажский",
+				"img": "",
+				"composition": ""
+			},
+			{
+				"alternative": false,
+				"category": "soup",
+				"title": "Борщ",
+				"img": "food/борщ.jpg",
+				"composition": ""
+			},
+			{
+				"alternative": true,
+				"category": "soup",
+				"title": "С фрикадельками",
+				"img": "food/с-фрикадельками.jpg",
+				"composition": ""
+			},
+			{
+				"alternative": false,
+				"category": "hotter",
+				"title": "Куриная отбивная",
+				"needSide": true,
+				"img": "food/куриная отбивная.jpg",
+				"composition": ""
+			},
+			{
+				"alternative": true,
+				"category": "hotter",
+				"needSide": true,
+				"title": "Азу из говядины",
+				"img": "food/азу-из-говядины.jpg",
+				"composition": ""
+			},
+			{
+				"alternative": false,
 				"category": "side",
 				"title": "макароны",
 				"img": "food/макароны.jpg",
+				"composition": ""
+			},
+			{
+				"alternative": true,
+				"category": "side",
+				"title": "тушеные овощи",
+				"img": "",
 				"composition": ""
 			}
 		]

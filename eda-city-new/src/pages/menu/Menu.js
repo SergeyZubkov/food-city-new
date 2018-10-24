@@ -43,15 +43,21 @@ export default class Menu extends Component {
 			}
 		)
 	}
-	handleSelect = (name, category) => {
-		dataService.addToOrderDish(name, category);
+	handleSelect = (name, category, needSide) => {
+		dataService.addToOrderDish(name, category, needSide);
 	}
-	handleDiselect = (category) => {
-		dataService.removeToOrderDish(category);
+	handleDiselect = (category, needSide) => {
+		dataService.removeToOrderDish(category, needSide);
 	}
 	renderCategory(category, items, categoryTitle) {
 		let {order} = this.state;
-		console.log(order[category]);
+		
+		const isDisabled = (title) => (
+			order[category]&&order[category] !== title
+			|| order[category] === "NO_NEED"
+		)
+
+
 		return (
 			<div className="menu-category" key={categoryTitle} >
 				<div className="menu-category-title">{categoryTitle}</div>
@@ -65,8 +71,8 @@ export default class Menu extends Component {
 									key={item.title} 
 									onSelected={this.handleSelect} 
 									onDiselected={this.handleDiselect}
-									isSelected={order[category] == item.title}
-									disabled={order[category]&&order[category] !== item.title}
+									isSelected={order[category] === item.title}
+									disabled={isDisabled(item.title)}
 									selectable={!this.selectedDayIsToday}
 									{...item}
 								/>
@@ -79,13 +85,14 @@ export default class Menu extends Component {
 	}
 	renderMenu() {
 		
+		// убираем альтернативные блюда на сегодня
 		let menuItems = this.state.menuDay.items.filter(item => {
 			if (this.selectedDayIsToday) {
 				return +item.alternative === 0
 			}
 			return item
 		})
-
+		
 		console.log(this.selectedDayIsToday)
 
 		let categoryTitles = {
@@ -95,7 +102,6 @@ export default class Menu extends Component {
 			side: "гарниры"
 		}
 		let categories = Object.keys(categoryTitles);
-		let jsx = [];
 
 		return categories.map(category => {
 				return this.renderCategory(
@@ -108,7 +114,7 @@ export default class Menu extends Component {
 
 	render() {
 		let {
-			menuDay:menu, order
+			menuDay:menu
 		} = this.state;
 
 		if (!menu)  {

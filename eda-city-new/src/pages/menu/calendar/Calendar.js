@@ -77,7 +77,7 @@ export default class Calendar extends Component {
 			let additionalClass = '';
 
 			if (isWorkingDate(date)) {
-				additionalClass = date.day == this.state.selectedDate.day 
+				additionalClass = date.day === this.state.selectedDate.day 
 				? 'calendar-day-active'
 				: ''
 			} else {

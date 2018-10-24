@@ -10,6 +10,7 @@
     "event-emitter-es6": "^1.1.5",
     "lodash.throttle": "^4.1.1",
     "moment": "^2.22.2",
+    "nanoajax": "^0.4.3",
     "normalize.css": "^8.0.0",
     "react": "^16.5.1",
     "react-dom": "^16.5.1",

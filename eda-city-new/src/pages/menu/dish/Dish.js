@@ -5,21 +5,28 @@ import defaultImg from '../../../imgs/dish-default.svg';
 import Button from '../../../commons/button/Button';
 
 export default class Dish extends Component {
-	handleDiselect = () => {
-		if (this.props.disabled) return
-
-		let {category} = this.props;
-
-		this.props.onDiselected(category);
-		this.setState({isSelected: false})
-	}
 	handleSelect = () => {
 		if (this.props.disabled) return
 
-		let {category} = this.props;
+		let {
+			title,
+			category,
+			needSide
+		} = this.props;
 
-		this.props.onSelected(this.props.title, category);
+		this.props.onSelected(title, category, needSide);
 		this.setState({isSelected: true})
+	}
+	handleDiselect = () => {
+		if (this.props.disabled) return
+
+		let {
+			category,
+			needSide
+		} = this.props;
+
+		this.props.onDiselected(category, needSide);
+		this.setState({isSelected: false})
 	}
 	render() {
 		let {
