@@ -12,36 +12,42 @@ if ($contentType === "application/json") {
   if(is_array($decoded)) {
     $phone = $decoded['phone'];
     $name = $decoded['name'];
-    $amount = $decoded['amount'];
 
     $addressDeliver = $decoded['addressDeliver'];
     $order = $decoded['order'];
-    $orderSalad = $order['salad'];
-    $orderSoup = $order['soup'];
-    $orderHotter = $order['hotter'];
-    $orderSide = $order['side'];
+    $totalPrice = 0;
 
     $address = "edacity@yandex.ru";
-    
+
     $msg  = "<html><body style='font-family: Arial, sans-serif; font-size: 2vw;'>";
     $msg .= "<h1 style='font-weight: bold;'>Данные клиента:</h1>\r\n";
     $msg .= "<p><strong>Имя:</strong> ".$name."</p>\r\n";
     $msg .= "<p><strong>Телефон:</strong> ".$phone."</p>\r\n";
     $msg .= "<p><strong>Адрес доставки:</strong> ".$addressDeliver."</p>\r\n";
     $msg .= "<h2 style='font-weight: bold;'>Заказ:</h2>\r\n";
-    $msg .= "<p><strong>Обед комплексный</strong> ".$amount." &#10005; 199 руб. = ".($amount * 199)." руб.</p>\r\n";
-    $msg .= "<div style='font-size: 12px; margin: 5px 3px;'>".$orderSalad."</div>\r\n";
-    $msg .= "<div style='font-size: 12px; margin: 5px 3px;'>".$orderSoup."</div>\r\n";
-    $msg .= "<div style='font-size: 12px; margin: 5px 3px;'>".$orderHotter."</div>\r\n";
-    $msg .= "<div style='font-size: 12px; margin: 5px 3px;'>".$orderSide."</div>\r\n";
 
-    $totalPrice = 199;
+    foreach($order as $orderItem) {
+      $orderSalad = $orderItem['salad'];
+      $orderSoup = $orderItem['soup'];
+      $orderHotter = $orderItem['hotter'];
+      $orderSide = $orderItem['side'];
+      $lunchPrice = 249;
 
-    foreach($order['submenu'] as $item) {
-       $price = $item['amount'] * $item['price'];
-       $msg .= "<p>".$item['name']." ".$item['amount']." &#10005; ".$item['price']." руб. = ".$price." руб.</p>\r\n";
-       $totalPrice += $price;
+      $totalPrice += $lunchPrice;
+
+      $msg .= "<p><strong>Обед комплексный</strong>".$lunchPrice."руб.</p>\r\n";
+      $msg .= "<div style='font-size: 12px; margin: 5px 3px;'>".$orderSalad."</div>\r\n";
+      $msg .= "<div style='font-size: 12px; margin: 5px 3px;'>".$orderSoup."</div>\r\n";
+      $msg .= "<div style='font-size: 12px; margin: 5px 3px;'>".$orderHotter."</div>\r\n";
+      $msg .= "<div style='font-size: 12px; margin: 5px 3px;'>".$orderSide."</div>\r\n";
+
+      foreach($orderItem['submenu'] as $item) {
+         $price = $item['amount'] * $item['price'];
+         $msg .= "<p>".$item['name']." ".$item['amount']." &#10005; ".$item['price']." руб. = ".$price." руб.</p>\r\n";
+         $totalPrice += $price;
+      }
     }
+
     $msg .=  "<p><strong>Итого: ".$totalPrice."</strong></p>\r\n";
     $msg .= "</body></html>";
 

@@ -58,9 +58,10 @@ export default class Calendar extends Component {
 	getNext6DatesFromDate(date) {
 		let arr = [date];
 		let i = 0;
+		let d = moment().month(date.month).date(date.day)
 
 		while (i++ < 6) {
-			let d = moment().month(date.month).date(date.day).add(i, 'days');
+			d = d.add(1, 'days');
 
 			arr.push({month: d.month(), day: d.date()})
 		}

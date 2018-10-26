@@ -39,9 +39,9 @@ export default class SubmenuItem extends Component {
 				<div className="submenu-item-title">{name}</div>
 				<div className="submenu-item-order">
 					<div className="submenu-item-price">{price} руб.</div>
-					<Button className='button-default' onClick={this.removeOne}> - </Button>
+					<Button className='button-red' onClick={this.removeOne}> - </Button>
 					<div className="submenu-item-amount">{amount}</div>
-					<Button className='button-default' onClick={this.addOne}> + </Button>
+					<Button className='button-green' onClick={this.addOne}> + </Button>
 				</div>
 			</div>
 		);

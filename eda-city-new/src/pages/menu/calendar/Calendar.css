@@ -27,6 +27,7 @@
 	flex-wrap: wrap;
 	cursor: 	pointer;
 	transition: .3s;
+	text-transform: uppercase;
 }
 
 .calendar-day-active {
@@ -73,5 +74,8 @@
 @media screen and (max-width: 670px) {
 	.calendar-fixed {
 		top: 75px;
+	}
+	.calendar-day {
+		font-size: 14px;
 	}
 }

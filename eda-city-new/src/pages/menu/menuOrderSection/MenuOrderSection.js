@@ -28,20 +28,48 @@ export default class MenuOrderSection extends Component {
 		this.setState({noSelectedValues: dataService.getNoSelectedValues()});
 	}
 
+	handlePlusLunch = () => {
+		
+		if (!dataService.selectedDayIsToday()) {
+			window.scrollTo({top: 0})
+		}
+		dataService.addOrderItem()
+	}
+
+	handleRemoveLunch = () => {
+		dataService.removeOrderItem();
+	}
+
 	render() {
 		let {noSelectedValues} = this.state;
-		const {
-			isValidate
-		} = this.props;
 
-		let disabledBtn = isValidate&&!!noSelectedValues.length;
-		let showMessage = disabledBtn;
-		let showTotalPrice = !showMessage;
+		let currentOrderUncomplete = noSelectedValues.length;
+		let showTotalPrice = !currentOrderUncomplete;
+
+
+
+		const ButtonLeft = 
+			dataService.orderHaveMoreOneItem()&&currentOrderUncomplete
+			? <Button 
+					className='button-red'
+					onClick={this.handleRemoveLunch}
+				>
+					Отменить 
+				</Button>
+			:
+				<Button 
+					className='button-default'
+					onClick={this.handlePlusLunch}
+					disabled={!!noSelectedValues.length}
+				>
+					+ обед
+				</Button>
+		
 
 		const ButtonWithRouter = withRouter(({ history }) => (
 		  <Button 
 		  	className='button-green' 
-		  	disabled={disabledBtn} 
+		  	disabled={currentOrderUncomplete} 
 		  	onClick={() => history.push('/order')}
 		  > 
 		  	заказать 
@@ -50,26 +78,24 @@ export default class MenuOrderSection extends Component {
 
 		return (
 			<div className='menu-order-section'>
+				<h4 className="menu-order-section-total-title">Ваш заказ:</h4>
 
-				<div className="menu-order-section-message"
+{/*				<div className="menu-order-section-message"
 					style={{
 						display: showMessage ? '' : 'none'
 					}}
 				>
 					<div className="menu-order-section-message-sign">!</div>
 					<div className='menu-order-section-message-text'>{`Вы не выбрали: ${noSelectedValues.join(', ')}`}</div>
-				</div>
+				</div>*/}
 
 				<div className="menu-order-section-total"
-					style={{
-						display: showTotalPrice ? '' : 'none'
-					}}
 				>
-					<h4 className="menu-order-section-total-title">Ваш заказ:</h4>
 					<AccountList />
 				</div>
 
 				<div className="menu-order-section-button">
+					{ButtonLeft}
 					<ButtonWithRouter />
 				</div>
 			</div>

@@ -16,11 +16,10 @@ export default class Menu extends Component {
 
 		this.state = {
 			menuDay: dataService.getMenuForSelectedDay(),
-			order: dataService.getOrder()
+			currentOrder: dataService.getCurrentOrder()
 		}
 
-		// this.selectedDayIsToday = dataService.selectedDayIsToday();
-		this.selectedDayIsToday = true;
+		this.selectedDayIsToday = dataService.selectedDayIsToday();
 	}
 	componentDidMount() {
 		dataService.on('changeOrder', this.refreshOrder);
@@ -32,7 +31,7 @@ export default class Menu extends Component {
 		console.log('menu destory')
 	}
 	refreshOrder = () => {
-		this.setState({order: dataService.getOrder()})
+		this.setState({currentOrder: dataService.getCurrentOrder()})
 	}
 	refreshMenuDay = () => {
 		this.selectedDayIsToday = dataService.selectedDayIsToday()
@@ -50,12 +49,12 @@ export default class Menu extends Component {
 		dataService.removeToOrderDish(category, needSide);
 	}
 	renderCategory(category, items, categoryTitle) {
-		let {order} = this.state;
+		let {currentOrder} = this.state;
 		
-		const isDisabled = (title) => (
-			order[category]&&order[category] !== title
-			|| order[category] === "NO_NEED"
-		)
+		const isDisabled = (category, title) => {
+			if (currentOrder[category] === 'NO_NEED') return true
+			return currentOrder[category]&&currentOrder[category] !== title
+		}
 
 
 		return (
@@ -71,8 +70,8 @@ export default class Menu extends Component {
 									key={item.title} 
 									onSelected={this.handleSelect} 
 									onDiselected={this.handleDiselect}
-									isSelected={order[category] === item.title}
-									disabled={isDisabled(item.title)}
+									isSelected={currentOrder[category] === item.title}
+									disabled={isDisabled(item.category, item.title)}
 									selectable={!this.selectedDayIsToday}
 									{...item}
 								/>
@@ -88,6 +87,7 @@ export default class Menu extends Component {
 		// убираем альтернативные блюда на сегодня
 		let menuItems = this.state.menuDay.items.filter(item => {
 			if (this.selectedDayIsToday) {
+				console.log('this no run')
 				return +item.alternative === 0
 			}
 			return item
@@ -142,17 +142,16 @@ export default class Menu extends Component {
 			</div>
 			<div className='menu container'>
 				<div className="menu-intro">
-					В состав обеда входит: суп, салат, горячее, гарнир и хлеб. Обед комплектуется одноразовыми приборами, солью и перцем
-				</div>
-				<div className="menu-stock">
-					Только до 31 октября: комплексный обед за <span className='line-through'>249</span> 199 рублей
+					В состав обеда входит: суп, салат, горячее, гарнир, ягодный напиток и хлеб. Обед комплектуется одноразовыми приборами, солью и перцем
 				</div>
 
-				{this.renderMenu()}
+				<div className="menu-categories">
+					{this.renderMenu()}
+				</div>
 
 				<Submenu />
 				
-				<MenuOrderSection isValidate={!this.selectedDayIsToday} />
+				<MenuOrderSection/>
 				
 			</div>
 			</React.Fragment>

@@ -14,7 +14,6 @@ export default class Order extends Component {
     this.state = {
     	name: '',
     	phone: '',
-    	amount: '',
     	addressDeliver: '',
     	error: false,
     	submit: false,
@@ -41,10 +40,6 @@ export default class Order extends Component {
     this.setState({phone: digits});
   }
 
-  handleChangeAmount = (event) => {
-    this.setState({amount: event.target.value});
-  }
-
   handleChangeAddress = (event) => {
     this.setState({addressDeliver: event.target.value});
   }
@@ -54,7 +49,6 @@ export default class Order extends Component {
       const {
         name,
         phone,
-        amount,
         addressDeliver
       } = this.state;
 
@@ -67,7 +61,6 @@ export default class Order extends Component {
         body: JSON.stringify({
           name,
           phone,
-          amount,
           addressDeliver,
           order: dataService.getOrder()
         })
@@ -80,12 +73,11 @@ export default class Order extends Component {
   isEmptyForm = () => {
     let {
       name,
-      amount,
       phone,
       addressDeliver
     } = this.state;
 
-    return !name||!amount||!phone||!addressDeliver
+    return !name||!phone||!addressDeliver
   }
 	render() {
 
@@ -129,21 +121,12 @@ export default class Order extends Component {
           	placeholder="Телефон"
           />
 
-          <input 
-						name='amount'
-          	type="number" 
-          	min='1'
-          	value={this.state.amount} 
-          	onChange={this.handleChangeAmount}
-          	placeholder="Кол. обедов"
-	         />
-
 	        <input 
 						name='address'
           	type="text" 
           	value={this.state.address} 
           	onChange={this.handleChangeAddress}
-          	placeholder="Адрес"
+          	placeholder="Адрес доставки"
 	         />
 					
 					<div className="order-form-buttons">

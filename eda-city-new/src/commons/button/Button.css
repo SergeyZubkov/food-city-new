@@ -22,6 +22,11 @@
 	border: 1px solid #000;
 }
 
+.button-default.button-disabled {
+	color: #ddd;
+	border-color: #ddd;
+}
+
 .button-green {
 	background-color: var(--main-color-1);
   outline-color: var(--main-color-1);

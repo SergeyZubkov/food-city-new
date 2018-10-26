@@ -44,7 +44,7 @@ export default class Submenu extends Component {
 		dataService.off('changeOrder', this.getData);
 	}
 	getData = () => {
-		let orderSubmenu = dataService.getOrder()["submenu"];
+		let orderSubmenu = dataService.getCurrentOrder()["submenu"];
 
 		this.setState({
 			submenu: dataService.submenu.map(item => {

@@ -13,7 +13,7 @@
 .menu-intro {
 	text-align: center;
 	font-size: 20px;
-	padding: 80px 0;
+	padding: 80px 0 40px;
 }
 
 .menu-stock {
@@ -24,7 +24,24 @@
 	font-size: 18px;
 
 	display: inline-block;
-	
+	margin-bottom: 20px;
+}
+
+.menu-categories {
+	display: grid;
+	grid-template-columns: repeat(4, 25%);
+}
+
+.menu-category {
+	grid-column: span 2;
+}
+
+.menu-category:nth-child(even) {
+	padding-left: 10px;
+}
+
+.menu-category:nth-child(odd) {
+	padding-right: 10px;
 }
 
 .menu-category-title {
@@ -64,9 +81,21 @@
 
 }
 
+@media screen and (max-width: 1020px) {
+	.menu-categories {
+		padding: 0 15px;
+	}
+}
+
 @media screen and (max-width: 660px) {
+	.menu-category {
+		grid-column: span 4;
+	}
 	.menu-category-title {
 		font-size: 26px;
+	}
+	.menu-categories {
+		padding: 0;
 	}
 	.menu-category-variants {
 		padding: 10px 10px;
@@ -77,7 +106,7 @@
 	}
 
 	.menu-intro {
-		font-size: 12px;
+		font-size: 14px;
 		padding: 30px 10px;
 	}
 }

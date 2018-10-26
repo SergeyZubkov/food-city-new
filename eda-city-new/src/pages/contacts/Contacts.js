@@ -18,7 +18,7 @@ export default class Contacts extends Component {
 							<div className="contacts-feedback-content">
 								<p className="contacts-feedback-text">
 									Мы - молодая компания, стремящаяся занять лидирующие позиции на рынке доставки обедов. 
-									Мы постоянно ищем возможности улучшить наш сервис. Поэтому, если у вас есть предложения или замечания - напишите нам, 
+									Мы постоянно ищем возможности улучшить наш сервис. Поэтому, если у вас есть предложения или замечания, - напишите нам, 
 									мы с радостью с ними ознакомимся. 
 									<span className="contacts-mail">
 										<img src={mail} alt="" className="contacts-mail-icon"/>

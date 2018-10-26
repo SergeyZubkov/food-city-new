@@ -2,16 +2,25 @@ import EventEmitter from 'event-emitter-es6';
 import menu from './menu.json';
 import submenu from './submenu.json';
 import m from 'moment';
+import {
+	isEmpty,
+	pick,
+	every
+} from 'lodash-es';
 
 const isMatchDate = (date1, date2) => date1.month === date2.month&&date1.day === date2.day;
-const FirstDateGreaterSecond = (date1, date2) => date1.month > date2.month&&date1.day > date2.day;
+const FirstDateGreaterSecond = (date1, date2) => date1.month > date2.month||date1.day > date2.day;
 
-const isNoNeedSide = (category, needSide) => category == 'hotter' && !needSide
+const isNoNeedSide = (category, needSide) => category === 'hotter' && !needSide;
+
+const NO_NEED = 'NO_NEED';
 
 class DataService extends EventEmitter {
 	constructor() {
 		super();
+
 		this.CLOSED_TIME =  m().hour(14).minute(0);
+		this.LUNCH_PRICE = 249;
 
 		this.menu = menu;
 		this.submenu = submenu.map(item => ({...item, amount: 0}));
@@ -20,15 +29,20 @@ class DataService extends EventEmitter {
 
 		this.selectedDate = Object.assign({}, this.startDate);
 
+		this.order = [];
+
 		this.orderDefault = () => {
 
 			if (this.selectedDayIsToday()) {
+				const todayMenu = this.getMenuForSelectedDay();
+
 				return {
-					salad: this.menu[0].items.filter(i => i.category === 'salad')[0].title,
-					soup:  this.menu[0].items.filter(i => i.category === 'soup')[0].title,
-					hotter:  this.menu[0].items.filter(i => i.category === 'hotter')[0].title,
-					side:  this.menu[0].items.filter(i => i.category === 'side')[0].title,
-					amount: 1,
+					salad: todayMenu.items.filter(i => i.category === 'salad')[0].title,
+					soup:  todayMenu.items.filter(i => i.category === 'soup')[0].title,
+					hotter:  todayMenu.items.filter(i => i.category === 'hotter')[0].title,
+					side:  todayMenu.items.filter(i => i.category === 'hotter')[0].needSide
+					? todayMenu.items.filter(i => i.category === 'side')[0].title
+					: NO_NEED,
 					submenu: []
 				}
 			} else {
@@ -43,7 +57,7 @@ class DataService extends EventEmitter {
 			}
 		}
 
-		this.order = this.orderDefault();
+		this.addOrderItem();
 	}
 
 	getStartedDate() {
@@ -52,7 +66,7 @@ class DataService extends EventEmitter {
 
 		let startDate = this.CLOSED_TIME.diff(m()) > 0
 		? {month: currentMonth, day: currentDay}
-		: {month: currentMonth, day: m().month(currentMonth).date(currentDay).add(1, 'd').date()}
+		: {month: m().month(currentMonth).add(1, 'd').month(), day: m().month(currentMonth).date(currentDay).add(1, 'd').date()}
 	
 		let endDate = this.menu[this.menu.length-1].date||startDate;
 
@@ -65,7 +79,7 @@ class DataService extends EventEmitter {
 			startDate.month = newDate.month();
 			startDate.day = newDate.date();
 
-			console.log(startDate)
+
 		}
 
 		return startDate;
@@ -83,35 +97,47 @@ class DataService extends EventEmitter {
 			day: m().date()
 		}
 
-		return isMatchDate(this.selectedDate, today)
-					||isMatchDate(this.selectedDate, {month: m().month(), day: 24}); 
+		return isMatchDate(this.selectedDate, today); 
 	}
 
 	addToOrderDish(name, category, needSide) {	
-		console.log(isNoNeedSide(category, needSide))
-		if (isNoNeedSide(category, needSide)) {
-			const NO_NEED = 'NO_NEED';
+		let currentOrder = this.getCurrentOrder();
 
-			this.order['side'] = NO_NEED;
+		if (isNoNeedSide(category, needSide)) {
+			currentOrder['side'] = NO_NEED;
 			console.log('no_need')
 		}
 
-		this.order[category] = name;
+		currentOrder[category] = name;
 		this.emit('changeOrder');
 	}
 
 	removeToOrderDish(category, needSide) {
+		let currentOrder = this.getCurrentOrder();
 
 		if (isNoNeedSide(category, needSide)) {
-			this.order['side'] = null;
+			currentOrder['side'] = null;
 		}
 
-		this.order[category] = null;
+		currentOrder[category] = null;
+		console.log("orderHaveMoreOneItem")
+		console.log(this.orderHaveMoreOneItem())
+		console.log("isEmptyOrderItem")
+		console.log(this.isEmptyOrderItem(currentOrder))
+		if (
+			this.orderHaveMoreOneItem()
+			&&this.isEmptyOrderItem(currentOrder)
+		) {
+			this.removeOrderItem()
+		}
+
 		this.emit('changeOrder');
 	}
 
 	addToOrderSubmenu(newItem) {
-		let submenu = this.order.submenu;
+		let currentOrder = this.getCurrentOrder();
+
+		let submenu = currentOrder.submenu;
 
 		let item = submenu.find(item => item.name === newItem.name)
 
@@ -127,13 +153,15 @@ class DataService extends EventEmitter {
 	}
 
 	removeToOrderSubmenu(name) {
-		let submenu = this.order.submenu;
+		let currentOrder = this.getCurrentOrder();
+
+		let submenu = currentOrder.submenu;
 
 		let item = submenu.find(item => item.name === name)
 
 		--item.amount;
 
-		if (item.amount === 0) this.order.submenu = submenu.filter(item => item.name !== name)
+		if (item.amount === 0) currentOrder.submenu = submenu.filter(item => item.name !== name)
 
 		this.emit('changeOrder');
 
@@ -153,24 +181,58 @@ class DataService extends EventEmitter {
 	getNoSelectedValues() {
 		let values = [];
 
-		if (!this.order.salad) values.push('салат');
-		if (!this.order.soup) values.push('суп');
-		if (!this.order.hotter) values.push('горячее');
-		if (!this.order.side) values.push('гарнир');
+		let currentOrder = this.getCurrentOrder();
+
+		if (!currentOrder.salad) values.push('салат');
+		if (!currentOrder.soup) values.push('суп');
+		if (!currentOrder.hotter) values.push('горячее');
+		if (!currentOrder.side) values.push('гарнир');
 
 		return values
 	}
 
+	getLunchPrice() {
+		return this.LUNCH_PRICE;
+	}
+
+	getCurrentOrder() {
+		return this.order[this.order.length-1];
+	}
+
 	getOrder() {
-		return Object.assign({}, this.order);
+		return this.order
 	}
 
 	clearOrder() {
-		this.order = this.orderDefault();
+		this.order = [];
+		this.order.push(this.orderDefault());
+
 		this.emit('changeOrder');
 		console.log(this.order)
 	}
 
+	addOrderItem() {
+		this.order.push(this.orderDefault());
+
+		this.emit('changeOrder');
+	}
+
+	removeOrderItem() {
+		this.order.pop();
+
+		this.emit('changeOrder');
+	}
+
+	orderHaveMoreOneItem() {
+		return this.order.length > 1
+	}
+
+	isEmptyOrderItem(item) {
+		return every(
+				pick(item, ['salad', 'soup', 'hotter', 'side']),
+				isEmpty
+		)
+	}
 }
 
 const dataService = new DataService();
