@@ -1,5 +1,5 @@
 .dish {
-	width: 260px;
+	width: 235px;
 	font-family: 'Noto serif', sans-serif;
 	display: flex;
 	flex-direction: column;
@@ -37,6 +37,10 @@
 	font-weight: 700;
 	letter-spacing: .3px;
 	margin: 10px 0;
+	/*нужен для разделения, потому что элм. этого типа плотно прилегают друг к другу*/
+	margin-right: 15px;
+	white-space: nowrap;
+	overflow: hidden;
 }
 
 
