@@ -182,13 +182,6 @@
 				"composition": ""
 			},
 			{
-				"alternative": false,
-				"category": "side",
-				"title": "Макароны",
-				"img": "food/side/макароны.jpg",
-				"composition": "макароны, вода, соль"
-			},
-			{
 				"alternative": true,
 				"category": "side",
 				"title": "Рис",
